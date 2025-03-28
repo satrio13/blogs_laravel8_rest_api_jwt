@@ -7,6 +7,7 @@ use App\Models\Download;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class DownloadController extends Controller 
 {
@@ -46,6 +47,7 @@ class DownloadController extends Controller
             return response()->json(['status' => true, 'message' => 'Data Berhasil Disimpan'], 201);
         }catch(\Exception $e)
         {
+            Log::error('Gagal simpan download: ' . $e->getMessage());
             return response()->json(['status' => false, 'message' => 'Data gagal disimpan, terjadi kesalahan'], 409);
         }
     }
@@ -104,6 +106,7 @@ class DownloadController extends Controller
             }
         }catch(\Exception $e)
         {
+            Log::error('Gagal update download: ' . $e->getMessage());
             return response()->json(['status' => false, 'message' => 'Data gagal diupdate, terjadi kesalahan'], 409);
         }
     }
@@ -128,6 +131,7 @@ class DownloadController extends Controller
             }
         }catch(\Exception $e)
         {
+            Log::error('Gagal delete download: ' . $e->getMessage());
             return response()->json(['status' => false, 'message' => 'Data gagal dihapus, terjadi kesalahan'], 409);
         }
     }  
