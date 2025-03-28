@@ -7,6 +7,7 @@ use App\Models\Posts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class PostsController extends Controller 
 {
@@ -49,6 +50,7 @@ class PostsController extends Controller
             return response()->json(['status' => true, 'message' => 'Data Berhasil Disimpan'], 201);
         }catch(\Exception $e)
         {
+            Log::error('Gagal simpan post: ' . $e->getMessage());
             return response()->json(['status' => false, 'message' => 'Data gagal disimpan, terjadi kesalahan'], 409);
         }
     }
@@ -111,6 +113,7 @@ class PostsController extends Controller
             }
         }catch(\Exception $e)
         {
+            Log::error('Gagal update post: ' . $e->getMessage());
             return response()->json(['status' => false, 'message' => 'Data gagal diupdate, terjadi kesalahan'], 409);
         }
     }
@@ -135,6 +138,7 @@ class PostsController extends Controller
             }
         }catch(\Exception $e)
         {
+            Log::error('Gagal delete post: ' . $e->getMessage());
             return response()->json(['status' => false, 'message' => 'Data gagal dihapus, terjadi kesalahan'], 409);
         }
     }  
